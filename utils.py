@@ -2,6 +2,7 @@ import json
 
 import numpy as np
 import matplotlib.pyplot as plt
+from car import car
 
 
 def get_car_positions(cars):

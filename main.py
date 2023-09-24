@@ -1,35 +1,39 @@
-import numpy as np
-from car import car
+import json
 from physics import timestep
 from utils import *
 
 np.random.seed(69)
 
-ro_0 = 0.3
-v_0 = 0.3
-v_max = 1.0
+time = 0.0
 
-d_max = 100
+constants = {
+    'initial_density': 0.15,
+    'initial_velocity': 0.3,
+    'max_velocity': 1.0,
+    'acceleration': 0.05,
+    'safety_distance': 7,
+    'max_distance': 300,
+    'pattern': 'random',
+    'max_time': 500.0,
+    'time_step': 1.0
+}
+
+# just in case
+with open('constants.json', 'w') as f:
+    json.dump(constants, f, indent=4)
+
 # we simulate traffic jams according to the equations from the 1D CA paper
 # create a road with a density of ro_0, with cars going at speed v_0
 # cars' positions are in steps of 1 at the beginning
-road = [car(v_0, i) for i in range(int(d_max * ro_0))]
+cars = init_road(constants)
 
-t = 0.0
-t_max = 10.0
-t_step = 0.05
+init_plot(constants)
 
-plot = plt.plot([], [])
-plt.xlim(0, d_max)
-plt.ylim(t_max, 0)
-plt.xlabel('Position')
-plt.ylabel('Time')
-plt.gca().xaxis.set_label_position('top')
-plt.gca().xaxis.tick_top()
+while time <= constants['max_time']:
+    timestep(cars, constants)
+    add_positions_to_plot(cars, time)
+    time += constants['time_step']
 
-while t <= t_max:
-    timestep(road, t_step)
-    plot_road(road_to_float(road), t, plt)
-    t += t_step
-
+# save the plot
+save_plot(constants)
 plt.show()

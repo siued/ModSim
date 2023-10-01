@@ -1,4 +1,5 @@
 import json
+import os
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,5 +40,14 @@ def init_road(constants):
     return cars
 
 
-def save_plot(name):
-    plt.savefig(f'{name}.png')
+def save_results(name, constants):
+    full_path = os.path.join('../results', f'{name}')
+    os.mkdir(full_path)
+
+    plt.savefig(os.path.join(full_path, 'fig.png'))
+
+    with open(os.path.join(full_path, 'constants.json'), 'w') as f:
+        json.dump(constants, f, indent=4)
+
+    with open(os.path.join(full_path, 'constants.txt'), 'w') as f:
+        f.write(json.dumps(constants).replace('_', ' '))

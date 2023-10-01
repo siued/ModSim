@@ -6,7 +6,7 @@ np.random.seed(69)
 
 time = 0.0
 
-name = '1D_CA_model_2'
+name = 'results/1D_CA_model_2'
 
 constants = {
     'initial_density': 0.15,

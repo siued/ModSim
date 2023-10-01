@@ -1,4 +1,3 @@
-import json
 from physics import timestep
 from utils import *
 
@@ -6,18 +5,19 @@ np.random.seed(69)
 
 time = 0.0
 
-name = '1D_CA_model_9'
+name = '2D_CA_model_1'
 
 constants = {
     'initial_density': 0.15,
     'initial_velocity': 0.3,
-    'max_velocity': 0.5,
+    'max_velocity': 1.0,
     'acceleration': 0.2,
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
     'max_time': 500.0,
-    'time_step': 1.0
+    'time_step': 1.0,
+    'dimensions': 2,
 }
 
 # we simulate traffic jams according to the equations from the 1D CA paper

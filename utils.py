@@ -38,8 +38,6 @@ def init_road(constants):
 
     return cars
 
-def save_plot(constants):
-    name = json.dumps(constants)
-    # remove curly braces, quotes, and colons
-    name = name[1:-1].replace('"', '').replace(':', '')
+
+def save_plot(name):
     plt.savefig(f'{name}.png')

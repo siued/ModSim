@@ -6,11 +6,13 @@ np.random.seed(69)
 
 time = 0.0
 
+name = '1D_CA_model_2'
+
 constants = {
     'initial_density': 0.15,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
-    'acceleration': 0.05,
+    'acceleration': 0.2,
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
@@ -19,8 +21,11 @@ constants = {
 }
 
 # just in case
-with open('constants.json', 'w') as f:
+with open(f'{name}.json', 'w') as f:
     json.dump(constants, f, indent=4)
+
+with open(f'{name}.txt', 'w') as f:
+    f.write(json.dumps(constants).replace('_', ' '))
 
 # we simulate traffic jams according to the equations from the 1D CA paper
 # create a road with a density of ro_0, with cars going at speed v_0
@@ -35,5 +40,5 @@ while time <= constants['max_time']:
     time += constants['time_step']
 
 # save the plot
-save_plot(constants)
+save_plot(name)
 plt.show()

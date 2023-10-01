@@ -15,6 +15,8 @@ def consider_line_change(cars, i, c):
 
 
 def timestep(cars, c):
+    full_speed, stopped, distance = 0.0, 0.0, 0.0
+
     for i in range(len(cars)):
         car_ahead = get_car_ahead(cars, cars[i].position, cars[i].lane)
         gap = car_ahead.position - cars[i].position
@@ -30,5 +32,12 @@ def timestep(cars, c):
             cars[i].velocity += c['acceleration']
             if cars[i].velocity > c['max_velocity']:
                 cars[i].velocity = c['max_velocity']
+        if cars[i].velocity == c['max_velocity']:
+            full_speed += 1
+        if cars[i].velocity == 0:
+            stopped += 1
+        distance += cars[i].velocity * c['time_step']
         cars[i].position = cars[i].position + cars[i].velocity * c['time_step']
     cars.sort(key=lambda car: car.position)
+
+    return full_speed, stopped, distance

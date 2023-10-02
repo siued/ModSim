@@ -15,8 +15,8 @@ def get_car_positions(cars, lane):
 def add_positions_to_plot(cars, time):
     lane0_positions = get_car_positions(cars, 0)
     lane1_positions = get_car_positions(cars, 1)
-    # plt.plot(lane0_positions, [time for _ in lane0_positions], 'bo', markersize=1)
-    plt.plot(lane1_positions, [time for _ in lane1_positions], 'ro', markersize=1)
+    plt.plot(lane0_positions, [time for _ in lane0_positions], 'bo', markersize=1)
+    # plt.plot(lane1_positions, [time for _ in lane1_positions], 'ro', markersize=1)
 
 
 def init_plot(constants):
@@ -66,6 +66,9 @@ def save_results(name, constants):
 
     if os.path.exists(full_path) and input('delete?') == 'y':
         shutil.rmtree(full_path)
+    else:
+        print('didn\'t save')
+        return
 
     os.mkdir(full_path)
 

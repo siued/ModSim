@@ -6,7 +6,7 @@ np.random.seed(69)
 name = '2D_CA_model_1'
 
 constants = {
-    'initial_density': 0.15,
+    'initial_density': 0.10,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
     'acceleration': 0.2,

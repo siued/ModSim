@@ -19,10 +19,11 @@ def get_car_behind(cars, position, lane):
     # if we are here, then we need to loop around
     return next(filter(lambda c: c.lane == lane, reversed(cars)))
 
-#write a function that calculates the distance between two cars, with car1 in front of car2
-def distance_between_cars(car1, car2, constants):
+
+# write a function that calculates the distance between two cars, with car1 in front of car2
+def distance_between_cars(car1, car2):
     if car1.position > car2.position:
-        return car2.position + constants['max_distance'] - car1.position
+        return car2.position - car1.position + car1.constants['max_distance']
     return car2.position - car1.position
 
 

@@ -7,7 +7,7 @@ Here we model and simulate. Or simulate and model, depending on what we feel lik
 - [x] implement physics from paper
 - [ ] implement a measure of the traffic-jamness of the simulation, try to find relationships between variables and the amount of traffic jam generated
 - [ ] mention limitations of our sim - cars don't move in parallel but one at a time
-
+- [ ] push the zip file with older code to github @Andreea
 
 
 ### Meeting 1 notes

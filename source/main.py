@@ -13,10 +13,11 @@ constants = {
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
-    'max_time': 500.0,
+    'max_time': 1000.0,
     'time_step': 1.0,
     'dimensions': 2,
 }
+
 
 def simulate(constants, save_plot=False):
     # we simulate traffic jams according to the equations from the 1D CA paper
@@ -56,26 +57,30 @@ def simulate(constants, save_plot=False):
 
     return full_speed_fraction, stopped_fraction, total_distance_covered
 
-# plot impact of acceleration on metrics
-plot = plt.plot([], [])
-variable = 'max_velocity'
-plt.xlabel(variable)
-plt.ylabel('Metrics')
 
-arr1, arr2, arr3 = [], [], []
+def simulate_variable_impact(variable, min, max):
+    # plot impact of acceleration on metrics
+    plt.xlabel(variable)
+    plt.ylabel('Metrics')
 
-values = np.linspace(0.01, 2.0)
-for value in values:
-    constants[variable] = value
-    full_speed_fraction, stopped_fraction, total_distance_covered = simulate(constants)
+    arr1, arr2, arr3 = [], [], []
 
-    arr1.append(full_speed_fraction)
-    arr2.append(stopped_fraction)
-    arr3.append(total_distance_covered)
+    values = np.linspace(min, max)
+    for value in values:
+        constants[variable] = value
+        full_speed_fraction, stopped_fraction, total_distance_covered = simulate(constants)
 
-plt.plot(values, arr1, 'b')
-plt.plot(values, arr2, 'r')
-plt.plot(values, arr3, 'g')
+        arr1.append(full_speed_fraction)
+        arr2.append(stopped_fraction)
+        arr3.append(total_distance_covered)
 
-plt.legend(['Full speed fraction', 'Stopped fraction', 'Total distance covered'])
-plt.show()
+    plt.plot(values, arr1, 'b')
+    plt.plot(values, arr2, 'r')
+    plt.plot(values, arr3, 'g')
+
+    plt.legend(['Full speed fraction', 'Stopped fraction', 'Total distance covered'])
+    plt.show()
+
+
+# simulate_variable_impact('max_velocity', 0.01, 2.0)
+simulate(constants, save_plot=True)

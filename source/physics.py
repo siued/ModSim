@@ -1,43 +1,42 @@
 from car import *
 
 
-def consider_line_change(cars, i, c):
-    other_lane = 1 - cars[i].lane
-    car_ahead = get_car_ahead(cars, cars[i].position, other_lane)
-    car_behind = get_car_behind(cars, cars[i].position, other_lane)
-    if car_ahead is None or car_ahead.position - cars[i].position > c['safety_distance']:
-        if car_behind is None or cars[i].position - car_behind.position >= c['safety_distance']:
-            cars[i].lane = other_lane
-            # undo deceleration and accelerate because there is now space in front.
-            cars[i].velocity += c['acceleration'] * 2
+def consider_lane_change(cars, car, c):
+    other_lane = 1 - car.lane
+    # get cars ahead and behind in the other lane
+    car_ahead = get_car_ahead(cars, car.position, other_lane)
+    car_behind = get_car_behind(cars, car.position, other_lane)
+    if car_ahead is None or distance_between_cars(car, car_ahead) > c['safety_distance']:
+        if car_behind is None or distance_between_cars(car_behind, car) >= c['safety_distance']:
+            car.lane = other_lane
+            car.velocity += c['acceleration']
+            return
     # there is no point in switching lanes, so stop in the same lane
-    cars[i].velocity = 0
+    car.velocity = max(car.velocity - c['acceleration'], 0)
 
 
 def timestep(cars, c):
     full_speed, stopped, distance = 0.0, 0.0, 0.0
 
-    for i in range(len(cars)):
-        car_ahead = get_car_ahead(cars, cars[i].position, cars[i].lane)
-        gap = car_ahead.position - cars[i].position
-        if gap < 0:
-            gap += c['max_distance']
+    for car in cars:
+        car_ahead = get_car_ahead(cars, car.position, car.lane)
+        gap = distance_between_cars(car, car_ahead)
 
         if gap < c['safety_distance']:
-            cars[i].velocity -= c['acceleration']
-            if cars[i].velocity <= 0:
-                consider_line_change(cars, i, c)
-                # cars[i].velocity = 0
+            if car.velocity - c['acceleration'] <= 0 and c['dimensions'] > 1:
+                consider_lane_change(cars, car, c)
+            else:
+                car.velocity = max(car.velocity - c['acceleration'], 0)
         else:
-            cars[i].velocity += c['acceleration']
-            if cars[i].velocity > c['max_velocity']:
-                cars[i].velocity = c['max_velocity']
-        if cars[i].velocity == c['max_velocity']:
+            car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
+
+        if car.velocity == c['max_velocity']:
             full_speed += 1
-        if cars[i].velocity == 0:
+        if car.velocity == 0:
             stopped += 1
-        distance += cars[i].velocity * c['time_step']
-        cars[i].position = cars[i].position + cars[i].velocity * c['time_step']
+        distance += car.velocity * c['time_step']
+
+        car.position = car.position + car.velocity * c['time_step']
     cars.sort(key=lambda car: car.position)
 
     return full_speed, stopped, distance

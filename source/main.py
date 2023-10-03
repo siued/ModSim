@@ -3,21 +3,6 @@ from utils import *
 
 np.random.seed(69)
 
-name = '2D_CA_model_1'
-
-constants = {
-    'initial_density': 0.10,
-    'initial_velocity': 0.3,
-    'max_velocity': 1.0,
-    'acceleration': 0.2,
-    'safety_distance': 7,
-    'max_distance': 300,
-    'pattern': 'random',
-    'max_time': 1000.0,
-    'time_step': 1.0,
-    'dimensions': 2,
-}
-
 
 def simulate(constants, save_plot=False):
     # we simulate traffic jams according to the equations from the 1D CA paper
@@ -26,7 +11,7 @@ def simulate(constants, save_plot=False):
     cars = init_road(constants)
 
     if save_plot:
-        init_plot(constants)
+        fig, axes = init_plot(constants)
 
     full_speed_fraction = 0.0
     stopped_fraction = 0.0
@@ -37,7 +22,7 @@ def simulate(constants, save_plot=False):
         full_speed, stopped, distance = timestep(cars, constants)
 
         if save_plot:
-            add_positions_to_plot(cars, time)
+            add_positions_to_plot(cars, time, axes)
 
         time += constants['time_step']
 
@@ -81,6 +66,21 @@ def simulate_variable_impact(variable, min, max):
     plt.legend(['Full speed fraction', 'Stopped fraction', 'Total distance covered'])
     plt.show()
 
+
+name = '2D_CA_model_2'
+
+constants = {
+    'initial_density': 0.15,
+    'initial_velocity': 0.3,
+    'max_velocity': 1.0,
+    'acceleration': 0.05,
+    'safety_distance': 7,
+    'max_distance': 300,
+    'pattern': 'random',
+    'max_time': 500.0,
+    'time_step': 1.0,
+    'dimensions': 2,
+}
 
 # simulate_variable_impact('max_velocity', 0.01, 2.0)
 simulate(constants, save_plot=True)

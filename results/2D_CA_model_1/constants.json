@@ -1,0 +1,12 @@
+{
+    "initial_density": 0.1,
+    "initial_velocity": 0.3,
+    "max_velocity": 1.0,
+    "acceleration": 0.2,
+    "safety_distance": 7,
+    "max_distance": 300,
+    "pattern": "random",
+    "max_time": 1000.0,
+    "time_step": 1.0,
+    "dimensions": 2
+}

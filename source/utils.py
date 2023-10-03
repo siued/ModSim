@@ -12,22 +12,23 @@ def get_car_positions(cars, lane):
 
 
 # plot lane 0 in blue, lane 1 in red
-def add_positions_to_plot(cars, time):
-    lane0_positions = get_car_positions(cars, 0)
-    lane1_positions = get_car_positions(cars, 1)
-    plt.plot(lane0_positions, [time for _ in lane0_positions], 'bo', markersize=1)
-    # plt.plot(lane1_positions, [time for _ in lane1_positions], 'ro', markersize=1)
+def add_positions_to_plot(cars, time, axes):
+    colormap = {0: 'b', 1: 'r', 2: 'g', 3: 'y', 4: 'm', 5: 'c'}
+    for i in range(len(axes)):
+        positions = get_car_positions(cars, i)
+        axes[i].plot(positions, [time for _ in positions], colormap[i] + 'o', markersize=0.2)
 
 
 def init_plot(constants):
-    plot = plt.plot([], [])
-    plt.xlim(0, constants['max_distance'])
-    plt.ylim(constants['max_time'], 0)
-    plt.xlabel('Position')
-    plt.ylabel('Time')
-    plt.gca().xaxis.set_label_position('top')
-    plt.gca().xaxis.tick_top()
-    return plot
+    fig, axes = plt.subplots(1, constants['dimensions'])
+    for ax in axes:
+        ax.set_xlim(0, constants['max_distance'])
+        ax.set_ylim(constants['max_time'], 0)
+        ax.set_xlabel('Position')
+        ax.set_ylabel('Time')
+        ax.xaxis.set_label_position('top')
+        ax.xaxis.tick_top()
+    return fig, axes
 
 
 def init_road(constants):
@@ -56,7 +57,7 @@ def init_road(constants):
             print('Pattern ' + constants['pattern'] + ' not implemented')
             exit()
 
-        cars.append(Car(pos, constants))
+        cars.append(Car(pos, constants, lane=np.random.randint(constants['dimensions'])))
 
     return cars
 
@@ -64,11 +65,12 @@ def init_road(constants):
 def save_results(name, constants):
     full_path = os.path.join('../results', f'{name}')
 
-    if os.path.exists(full_path) and input('delete?') == 'y':
-        shutil.rmtree(full_path)
-    else:
-        print('didn\'t save')
-        return
+    if os.path.exists(full_path):
+        if input('overwrite?') == 'y':
+            shutil.rmtree(full_path)
+        else:
+            print('didn\'t save')
+            return
 
     os.mkdir(full_path)
 

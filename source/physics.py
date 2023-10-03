@@ -23,7 +23,7 @@ def timestep(cars, c):
         gap = distance_between_cars(car, car_ahead)
 
         if gap < c['safety_distance']:
-            if car.velocity - c['acceleration'] <= 0 and c['dimensions'] > 1:
+            if car.velocity - c['acceleration'] <= c['lane_change_max_speed'] and c['dimensions'] > 1:
                 consider_lane_change(cars, car, c)
             else:
                 car.velocity = max(car.velocity - c['acceleration'], 0)

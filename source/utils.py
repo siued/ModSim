@@ -21,13 +21,18 @@ def add_positions_to_plot(cars, time, axes):
 
 def init_plot(constants):
     fig, axes = plt.subplots(1, constants['dimensions'])
-    for ax in axes:
+    for ax, i in zip(axes, range(len(axes))):
         ax.set_xlim(0, constants['max_distance'])
         ax.set_ylim(constants['max_time'], 0)
         ax.set_xlabel('Position')
         ax.set_ylabel('Time')
-        ax.xaxis.set_label_position('top')
+        # ax.xaxis.set_label_position('top')
         ax.xaxis.tick_top()
+        ax.set_title(f'Lane {i}')
+
+        if i != 0:
+            ax.yaxis.set_label_position('right')
+            ax.yaxis.tick_right()
     return fig, axes
 
 

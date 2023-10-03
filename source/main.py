@@ -80,6 +80,8 @@ constants = {
     'max_time': 500.0,
     'time_step': 1.0,
     'dimensions': 2,
+    # maximum speed at which lane change is considered as an alternative to slowing down
+    'lane_change_max_speed': 0.2
 }
 
 # simulate_variable_impact('max_velocity', 0.01, 2.0)

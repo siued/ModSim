@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 
+import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 from car import Car
@@ -16,11 +17,14 @@ def add_positions_to_plot(cars, time, axes):
     colormap = {0: 'b', 1: 'r', 2: 'g', 3: 'y', 4: 'm', 5: 'c'}
     for i in range(len(axes)):
         positions = get_car_positions(cars, i)
-        axes[i].plot(positions, [time for _ in positions], colormap[i] + 'o', markersize=0.2)
+        axes[i].plot(positions, [time for _ in positions], colormap[i] + 'o', markersize=0.2, fillstyle='full')
 
 
 def init_plot(constants):
+    matplotlib.rcParams["figure.dpi"] = 500
     fig, axes = plt.subplots(1, constants['dimensions'])
+    if constants['dimensions'] == 1:
+        axes = [axes]
     for ax, i in zip(axes, range(len(axes))):
         ax.set_xlim(0, constants['max_distance'])
         ax.set_ylim(constants['max_time'], 0)
@@ -79,7 +83,7 @@ def save_results(name, constants):
 
     os.mkdir(full_path)
 
-    plt.savefig(os.path.join(full_path, 'fig.png'))
+    plt.savefig(os.path.join(full_path, 'fig.png'), dpi=1000)
 
     with open(os.path.join(full_path, 'constants.json'), 'w') as f:
         json.dump(constants, f, indent=4)

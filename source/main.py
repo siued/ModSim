@@ -31,8 +31,8 @@ def simulate(constants, save_plot=False):
         total_distance_covered += distance
 
     # calculate the fractions of time spent at full speed and stopped
-    full_speed_fraction /= len(cars) * time
-    stopped_fraction /= len(cars) * time
+    full_speed_fraction = (full_speed_fraction * constants['time_step']) / (len(cars) * (time))
+    stopped_fraction = (stopped_fraction * constants['time_step']) / (len(cars) * (time))
     # calculate the fraction of the total possible distance covered
     total_distance_covered = total_distance_covered / (len(cars) * constants['max_time'] * constants['max_velocity'])
     # save the plot
@@ -67,7 +67,7 @@ def simulate_variable_impact(variable, min, max):
     plt.show()
 
 
-name = '2D_CA_model_2'
+name = '2D_CA_model_4'
 
 constants = {
     'initial_density': 0.15,
@@ -80,9 +80,14 @@ constants = {
     'max_time': 500.0,
     'time_step': 1.0,
     'dimensions': 2,
-    # maximum speed at which lane change is considered as an alternative to slowing down
-    'lane_change_max_speed': 0.2
+    # maximum speed at which space-based lane change is considered as an alternative to slowing down
+    'lane_change_max_speed': 0.0,
+    # method used to decide when to change lanes
+    # 'space-based' - change lanes when there is enough space in the other lane
+    # 'speed-based' - change lanes when the speed in the other lane seems higher, disregarding space
+    'lane_change_method': 'space-based',
+    'random_slowdown_probability': 0.0
 }
 
-# simulate_variable_impact('max_velocity', 0.01, 2.0)
-simulate(constants, save_plot=True)
+simulate_variable_impact('max_velocity', 0.01, 2.0)
+# simulate(constants, save_plot=True)

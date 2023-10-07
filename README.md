@@ -3,12 +3,19 @@ Here we model and simulate. Or simulate and model, depending on what we feel lik
 ## To do list:
 - [x] make the cars start evenly spread across the road
 - [x] try out car distributions
-- [ ] add logic to the movement of the cars
+- [x] add logic to the movement of the cars
 - [x] implement physics from paper
-- [ ] implement a measure of the traffic-jamness of the simulation, try to find relationships between variables and the amount of traffic jam generated
+- [x] implement a measure of the traffic-jamness of the simulation, try to find relationships between variables and the amount of traffic jam generated
 - [ ] mention limitations of our sim - cars don't move in parallel but one at a time
 - [ ] push the zip file with older code to github @Andreea
-
+- [ ] make a random slowdown parameter?
+- [ ] make more lane change algorithms?
+- [ ] make the road start with unbalanced densities
+- [ ] mention that we are using no memory for the drivers
+- [ ] talk about the acceleration to max speed ratio
+- [ ] talk about random slowdown making graphs look chaotic, maybe more realistic
+- [ ] try making random slowdown depend on something cause stochastic models and shit
+- [ ] try making safety distance depend on speed - this sucks, maybe talk about it?
 
 ### Meeting 1 notes
 We discussed how to implement two-lane simulation using the existing code. We discussed potential ways to simulate lane switching, like:

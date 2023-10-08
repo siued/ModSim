@@ -6,7 +6,7 @@ from car import *
 
 def update_speed(car, gap, c):
     if gap < c['safety_distance']:
-        car.velocity = max(car.velocity - c['acceleration'], 0)
+        car.velocity = max(car.velocity - c['deceleration'], 0)
     else:
         car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
 
@@ -15,7 +15,7 @@ def update_speed(car, gap, c):
 
 
 def consider_lane_change_space_based(cars, car, c, gap):
-    if gap > c['safety_distance'] or car.velocity - c['acceleration'] > c['lane_change_max_speed']:
+    if gap > c['safety_distance'] or car.velocity - c['deceleration'] > c['lane_change_max_speed']:
         update_speed(car, gap, c)
         return
 
@@ -30,7 +30,7 @@ def consider_lane_change_space_based(cars, car, c, gap):
             car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
             return
     # there is no point in switching lanes, so slow down in current lane
-    car.velocity = max(car.velocity - c['acceleration'], 0)
+    car.velocity = max(car.velocity - c['deceleration'], 0)
 
 
 def consider_lane_change_speed_based(cars, car, c, gap):
@@ -46,7 +46,7 @@ def consider_lane_change_speed_based(cars, car, c, gap):
         other_lane_speed = (car_ahead.velocity + car_behind.velocity) / 2
 
     if gap < c['safety_distance']:
-        this_lane_speed = max(car.velocity - c['acceleration'], 0)
+        this_lane_speed = max(car.velocity - c['deceleration'], 0)
     else:
         this_lane_speed = min(car.velocity + c['acceleration'], c['max_velocity'])
 

@@ -70,16 +70,17 @@ def simulate_variable_impact(variable, min, max):
 name = '2D_CA_model_4'
 
 constants = {
-    'initial_density': 0.15,
+    'initial_density': 0.12,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
-    'acceleration': 0.2,
+    'acceleration': 0.05,
+    'deceleration': 0.1,
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
     'max_time': 500.0,
     'time_step': 1.0,
-    'dimensions': 2,
+    'dimensions': 1,
     # maximum speed at which space-based lane change is considered as an alternative to slowing down
     'lane_change_max_speed': 0.0,
     # method used to decide when to change lanes

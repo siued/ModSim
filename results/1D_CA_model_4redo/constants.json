@@ -1,0 +1,16 @@
+{
+    "initial_density": 0.15,
+    "initial_velocity": 0.3,
+    "max_velocity": 1.0,
+    "acceleration": 0.2,
+    "safety_distance": 2,
+    "max_distance": 300,
+    "pattern": "random",
+    "max_time": 500.0,
+    "time_step": 1.0,
+    "deceleration": 0.4,
+    "dimensions": 1,
+    "lane_change_max_speed": 0.0,
+    "lane_change_method": "space-based",
+    "random_slowdown_probability": 0.0
+}

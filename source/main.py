@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from physics import timestep
 from utils import *
 
@@ -37,8 +39,8 @@ def simulate(constants, save_plot=False):
     total_distance_covered = total_distance_covered / (len(cars) * constants['max_time'] * constants['max_velocity'])
     # save the plot
     if save_plot:
-        save_results(name, constants)
         plt.show()
+        save_results(name, constants)
 
     return full_speed_fraction, stopped_fraction, total_distance_covered
 
@@ -66,29 +68,33 @@ def simulate_variable_impact(variable, min, max):
     plt.legend(['Full speed fraction', 'Stopped fraction', 'Total distance covered'])
     plt.show()
 
+    name = '2D_CA_model_' + variable + '_impact'
+    save_results(name, constants)
 
-name = '2D_CA_model_4'
+
+name = '2D_CA_model_8'
 
 constants = {
-    'initial_density': 0.12,
+    'initial_density': 0.15,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
-    'acceleration': 0.05,
-    'deceleration': 0.1,
+    'acceleration': 0.04,
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
     'max_time': 500.0,
     'time_step': 1.0,
-    'dimensions': 1,
+    'dimensions': 2,
     # maximum speed at which space-based lane change is considered as an alternative to slowing down
-    'lane_change_max_speed': 0.0,
+    'lane_change_max_speed': 0.1,
     # method used to decide when to change lanes
     # 'space-based' - change lanes when there is enough space in the other lane
-    # 'speed-based' - change lanes when the speed in the other lane seems higher, disregarding space
-    'lane_change_method': 'speed-based',
-    'random_slowdown_probability': 0.0
+    # 'speed-based' - change lanes when the speed in the other lane seems higher
+    'lane_change_method': 'space-based',
+    'random_slowdown_probability': 0.01
 }
 
-# simulate_variable_impact('max_velocity', 0.01, 2.0)
-simulate(constants, save_plot=True)
+constants['deceleration'] = constants['acceleration'] * 2
+
+simulate_variable_impact('acceleration', 0.04, 0.5)
+# simulate(constants, save_plot=True)

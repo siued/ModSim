@@ -1,5 +1,4 @@
 import numpy as np
-import numpy.random
 
 from car import *
 
@@ -11,6 +10,8 @@ def update_speed(car, gap, c):
         car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
 
     if car.velocity * c['time_step'] >= gap:
+        # can occur if parameters are set such that cars can't decelerate fast enough
+        # relative to the safety distance and max velocity
         print('crash')
 
 
@@ -50,12 +51,17 @@ def consider_lane_change_speed_based(cars, car, c, gap):
     else:
         this_lane_speed = min(car.velocity + c['acceleration'], c['max_velocity'])
 
+    # if other lane is empty and this lane isn't at max speed, switch lanes
+    if car_ahead is None and this_lane_speed < c['max_velocity']:
+        car.lane = other_lane
+        car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
+        return
+
     # consider speed difference vs acceleration?
     # maybe add a driver politeness parameter?
     if (other_lane_speed > this_lane_speed
-            and distance_between_cars(car_behind, car_ahead) > c['safety_distance']
-            # to avoid frequent lane changes
-            and np.random.rand() > 0.9):
+            and distance_between_cars(car_behind, car) > c['safety_distance']
+            and distance_between_cars(car, car_ahead) >= c['safety_distance']):
         car.lane = other_lane
         gap = distance_between_cars(car, car_ahead)
         update_speed(car, gap, c)
@@ -96,8 +102,8 @@ def timestep(cars, c):
             stopped += 1
 
         if np.random.rand() < c['random_slowdown_probability']:
-            # just some constant, just using acceleration is too little
-            car.velocity /= 4
+            # just some constant, just using deceleration is too little
+            car.velocity = max(car.velocity - 2 * c['deceleration'], 0)
 
         distance += car.velocity * c['time_step']
 

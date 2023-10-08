@@ -1,5 +1,5 @@
 {
-    "initial_density": 0.15,
+    "initial_density": 0.08,
     "initial_velocity": 0.3,
     "max_velocity": 1.0,
     "acceleration": 0.2,
@@ -11,6 +11,6 @@
     "dimensions": 2,
     "lane_change_max_speed": 0.0,
     "lane_change_method": "space-based",
-    "random_slowdown_probability": 0.0,
+    "random_slowdown_probability": 0.01,
     "deceleration": 0.4
 }

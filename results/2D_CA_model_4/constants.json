@@ -10,7 +10,7 @@
     "time_step": 1.0,
     "dimensions": 2,
     "lane_change_max_speed": 0.0,
-    "lane_change_method": "space-based",
+    "lane_change_method": "speed-based",
     "random_slowdown_probability": 0.0,
     "deceleration": 0.4
 }

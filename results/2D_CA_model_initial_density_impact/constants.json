@@ -1,5 +1,5 @@
 {
-    "initial_density": 0.4,
+    "initial_density": 0.3,
     "initial_velocity": 0.3,
     "max_velocity": 1.0,
     "acceleration": 0.2,

@@ -1,9 +1,9 @@
 {
-    "initial_density": 0.15,
+    "initial_density": 0.1,
     "initial_velocity": 0.3,
     "max_velocity": 1.0,
     "acceleration": 0.2,
-    "safety_distance": 15.0,
+    "safety_distance": 20.0,
     "max_distance": 300,
     "pattern": "random",
     "max_time": 500.0,

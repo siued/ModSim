@@ -2,7 +2,7 @@
     "initial_density": 0.15,
     "initial_velocity": 0.3,
     "max_velocity": 1.0,
-    "acceleration": 0.5,
+    "acceleration": 1.0,
     "safety_distance": 7,
     "max_distance": 300,
     "pattern": "random",
@@ -12,5 +12,5 @@
     "lane_change_max_speed": 0.1,
     "lane_change_method": "space-based",
     "random_slowdown_probability": 0.01,
-    "deceleration": 0.08
+    "deceleration": 0.4
 }

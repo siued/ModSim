@@ -14,7 +14,7 @@ def get_car_behind(cars, position, lane):
     if not any(map(lambda c: c.lane == lane, cars)):
         return None
     for car in reversed(cars):
-        if car.position < position and car.lane == lane:
+        if car.position <= position and car.lane == lane:
             return car
     # if we are here, then we need to loop around
     return next(filter(lambda c: c.lane == lane, reversed(cars)))

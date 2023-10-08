@@ -10,6 +10,9 @@ def update_speed(car, gap, c):
     else:
         car.velocity = min(car.velocity + c['acceleration'], c['max_velocity'])
 
+    if car.velocity * c['time_step'] >= gap:
+        print('crash')
+
 
 def consider_lane_change_space_based(cars, car, c, gap):
     if gap > c['safety_distance'] or car.velocity - c['acceleration'] > c['lane_change_max_speed']:

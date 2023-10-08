@@ -11,7 +11,7 @@ Here we model and simulate. Or simulate and model, depending on what we feel lik
 - [ ] make a random slowdown parameter?
 - [ ] make more lane change algorithms?
 - [ ] make the road start with unbalanced densities
-- [ ] mention that we are using no memory for the drivers
+- [ ] mention that we are using no memory for the drivers like for lane changes etc
 - [ ] talk about the acceleration to max speed ratio
 - [ ] talk about random slowdown making graphs look chaotic, maybe more realistic
 - [ ] try making random slowdown depend on something cause stochastic models and shit

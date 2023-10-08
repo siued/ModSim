@@ -39,8 +39,8 @@ def simulate(constants, save_plot=False):
     total_distance_covered = total_distance_covered / (len(cars) * constants['max_time'] * constants['max_velocity'])
     # save the plot
     if save_plot:
-        plt.show()
         save_results(name, constants)
+        plt.show()
 
     return full_speed_fraction, stopped_fraction, total_distance_covered
 
@@ -66,19 +66,19 @@ def simulate_variable_impact(variable, min, max):
     plt.plot(values, arr3, 'g')
 
     plt.legend(['Full speed fraction', 'Stopped fraction', 'Total distance covered'])
-    plt.show()
 
     name = '2D_CA_model_' + variable + '_impact'
     save_results(name, constants)
+    plt.show()
 
 
 name = '2D_CA_model_8'
 
 constants = {
-    'initial_density': 0.15,
+    'initial_density': 0.10,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
-    'acceleration': 0.04,
+    'acceleration': 0.05,
     'safety_distance': 7,
     'max_distance': 300,
     'pattern': 'random',
@@ -96,5 +96,5 @@ constants = {
 
 constants['deceleration'] = constants['acceleration'] * 2
 
-simulate_variable_impact('acceleration', 0.04, 0.5)
+simulate_variable_impact('random_slowdown_probability', 0.001, 0.4)
 # simulate(constants, save_plot=True)

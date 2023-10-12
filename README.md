@@ -15,7 +15,7 @@ Here we model and simulate. Or simulate and model, depending on what we feel lik
 - [ ] talk about the acceleration to max speed ratio
 - [ ] talk about random slowdown making graphs look chaotic, maybe more realistic
 - [ ] try making random slowdown depend on something cause stochastic models and shit
-- [ ] try making safety distance depend on speed - this sucks, maybe talk about it?
+- [ ] try making safety distance depend on speed - this sucks, try it with rand slowdowns
 
 ### Meeting 1 notes
 We discussed how to implement two-lane simulation using the existing code. We discussed potential ways to simulate lane switching, like:

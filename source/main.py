@@ -82,11 +82,11 @@ def simulate_variable_impact(variable, min, max):
 
 # name of the simulation run
 # results will be saved under 'results/name/' as a png, json and txt files
-name = '2D_CA_model_10'
+name = '2D_CA_model_11'
 
 # the constants for the simulation
 constants = {
-    'initial_density': 0.12,
+    'initial_density': 0.13,
     'initial_velocity': 0.3,
     'max_velocity': 1.0,
     'acceleration': 0.2,
@@ -99,7 +99,7 @@ constants = {
     # number of lanes. currently only 1 or 2 are supported
     'dimensions': 2,
     # maximum speed at which space-based lane change is considered as an alternative to slowing down
-    'lane_change_max_speed': 0.1,
+    'lane_change_max_speed': 0.0,
     # method used to decide when to change lanes
     # 'space-based' - change lanes when there is enough space in the other lane
     # 'speed-based' - change lanes when the speed in the other lane seems higher
@@ -111,5 +111,5 @@ constants = {
 # if braking is too low relative to max_velocity and safety-distance, cars will crash into each other
 constants['deceleration'] = constants['acceleration'] * 2
 
-# simulate_variable_impact('acceleration', 0.04, 1.0)
-simulate(constants, save_plot=True)
+if __name__ == '__main__':
+    simulate(constants, save_plot=True)

@@ -13,7 +13,7 @@ def update_speed(car, gap, c):
     if car.velocity * c['time_step'] >= gap:
         # can occur if parameters are set such that cars can't decelerate fast enough
         # relative to the safety distance and max velocity
-        print('crash')
+        print('crash!')
 
 
 # change lanes if car is about to slow down and there is enough space in the other lane
